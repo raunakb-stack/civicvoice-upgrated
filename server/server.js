@@ -34,7 +34,10 @@ io.on('connection', (socket) => {
 
 // Rate limiters
 const globalLimiter = rateLimit({ windowMs: 15*60*1000, max: 300, standardHeaders: true, legacyHeaders: false });
-const authLimiter   = rateLimit({ windowMs: 15*60*1000, max: 20,  message: { message: 'Too many auth attempts, wait 15 min.' } });
+const authLimiter = rateLimit({ 
+  windowMs: 15*60*1000, 
+  max: 100,  // increase from 20 to 100 for testing
+});
 
 // Middleware
 app.use(cors({ origin: process.env.CLIENT_URL || 'http://localhost:5173', credentials: true }));
